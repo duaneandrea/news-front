@@ -1,50 +1,38 @@
-# React + TypeScript + Vite
+### **Frontend (React) Docker Setup**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### **Step-by-Step Instructions:**
 
-Currently, two official plugins are available:
+1. **Ensure all necessary files are created:**
+   - `Dockerfile` (for React project)
+   - `.dockerignore`
+   - `docker-compose.yml` (optional but recommended)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Build and Run the Frontend with Docker:**
 
-## Expanding the ESLint configuration
+   From the root directory of your React project, run the following commands:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   1. **Build the Docker image:**
 
-- Configure the top-level `parserOptions` property like this:
+      ```bash
+      docker build -t react-app .
+      ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+   2. **Run the container:**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+      You can run the container with the following command:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+      ```bash
+      docker run -p 3000:3000 react-app
+      ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+      This command exposes port 3000 of your container to port 3000 on your machine. Visit `http://localhost:3000` in your browser to access the React app.
+
+   **Alternatively**, if you're using Docker Compose:
+
+   1. **Run using Docker Compose:**
+
+      ```bash
+      docker-compose up --build
+      ```
+
+      This will build and start the container as defined in the `docker-compose.yml` file. By default, your frontend will be accessible at `http://localhost:3000`.
